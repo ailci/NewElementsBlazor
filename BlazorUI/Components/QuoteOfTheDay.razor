@@ -1,11 +1,15 @@
-﻿
+﻿@using Shared.ViewModels
+
 
 @Title
-
+@QotdVm?.AuthorName
 
 
 @code {
 
     [Parameter, EditorRequired] 
     public string? Title { get; set; }
+
+    [Parameter, EditorRequired] 
+    public QuoteOfTheDayViewModel? QotdVm { get; set; }
 }
