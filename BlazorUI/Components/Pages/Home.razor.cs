@@ -1,5 +1,6 @@
 using Domain.Entities;
 using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Shared.ViewModels;
 
@@ -10,16 +11,20 @@ public partial class Home
 
     public QuoteOfTheDayViewModel? QotdViewModel { get; set; }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        var test = QotdContext.Authors.ToList();
+        var quotes = await QotdContext.Quotes.Include(c => c.Author).ToListAsync();
+        var random = new Random();
+        var randomQuote = quotes[random.Next(quotes.Count)];
 
         QotdViewModel = new QuoteOfTheDayViewModel
         {
-            AuthorName = "Ich",
-            AuthorDescription = "Dozent",
-            AuthorBirthDate = new DateOnly(2000,01,01),
-            QuoteText = "Larum lierum Löffelstiel"
+            AuthorName = randomQuote.Author?.Name,
+            AuthorDescription = randomQuote.Author?.Description,
+            AuthorBirthDate = randomQuote.Author?.BirthDate,
+            QuoteText = randomQuote.QuoteText,
+            AuthorPhoto = randomQuote.Author?.Photo,
+            AuthorPhotoMimeType = randomQuote.Author?.PhotoMimeType
         };
     }
 }
