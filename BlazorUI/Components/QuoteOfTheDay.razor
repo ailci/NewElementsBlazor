@@ -14,12 +14,12 @@ else
                     <!-- BILD -->
                 </p>
                 <blockquote class="text-center">
-                    <p class="lead fw-bold"><!-- QuoteText --></p>
+                    <p class="lead fw-bold">@QotdVm.QuoteText</p>
                     <cite>
-                        <span><!-- AuthorName --> - <!-- AuthorDescription --></span>
+                        <span>@QotdVm.AuthorName - @QotdVm.AuthorDescription</span>
                         <br />
                         <span>
-                            <!-- AuthorBirthDate -->
+                            @(QotdVm.AuthorBirthDate is not null ? QotdVm.AuthorBirthDate.Value.ToShortDateString() : "k.A.")
                         </span>
                     </cite>
                 </blockquote>
@@ -28,9 +28,7 @@ else
     </div>
 }
 
-
 @code {
-
     [Parameter, EditorRequired] 
     public string? Title { get; set; }
 

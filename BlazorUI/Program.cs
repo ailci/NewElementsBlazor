@@ -5,12 +5,16 @@ using BlazorUI.Components;
 using BlazorUI.Components.Account;
 using BlazorUI.Data;
 using BlazorUI.Middleware;
+using Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();  //Blazor Server
+
+//Db
+builder.Services.ConfigQotdContext(builder.Configuration);
 
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
