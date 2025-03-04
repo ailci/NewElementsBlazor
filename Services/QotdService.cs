@@ -45,8 +45,17 @@ public class QotdService(ILoggerManager logger, IDbContextFactory<QotdContext> c
         return mapper.Map<IEnumerable<AuthorViewModel>>(authors);
     }
 
-    public async Task<AuthorViewModel> DeleteAuthorAsync(Guid authorId)
+    public async Task<AuthorViewModel?> DeleteAuthorAsync(Guid authorId)
     {
-        throw new NotImplementedException();
+        logger.LogInformation($"{nameof(DeleteAuthorAsync)} mit AuthorId {authorId} aufgerufen...");
+        await using var context = await contextFactory.CreateDbContextAsync();
+        var author = await context.Authors.FindAsync(authorId);
+
+        if (author is null) return null;
+
+        context.Authors.Remove(author);
+        await context.SaveChangesAsync();
+
+        return mapper.Map<AuthorViewModel>(author);
     }
 }

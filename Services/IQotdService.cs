@@ -11,5 +11,5 @@ public interface IQotdService
 {
     Task<QuoteOfTheDayViewModel> GetQuoteOfTheDayAsync();
     Task<IEnumerable<AuthorViewModel>> GetAuthorsAsync();
-    Task<AuthorViewModel> DeleteAuthorAsync(Guid authorId);
+    Task<AuthorViewModel?> DeleteAuthorAsync(Guid authorId);
 }
