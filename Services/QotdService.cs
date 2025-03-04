@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Logging;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Shared.ViewModels;
 
 namespace Services;
 
-public class QotdService(IDbContextFactory<QotdContext> contextFactory) : IQotdService
+public class QotdService(ILoggerManager logger, IDbContextFactory<QotdContext> contextFactory) : IQotdService
 {
     public async Task<QuoteOfTheDayViewModel> GetQuoteOfTheDayAsync()
     {
+        logger.LogInformation($"{nameof(GetQuoteOfTheDayAsync)} wurde aufgerufen...");
+
         await using var context = await contextFactory.CreateDbContextAsync();
 
         var quotes = await context.Quotes.Include(c => c.Author).ToListAsync();

@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Logging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -10,7 +11,7 @@ namespace BlazorUI.Components.Pages;
 public partial class Home : IDisposable
 {
     [Inject] public IQotdService QotdService { get; set; } = null!;
-    [Inject] public ILogger<Home> Logger { get; set; } = null!;
+    [Inject] public ILoggerManager Logger { get; set; } = null!;
     [Inject] public PersistentComponentState ApplicationState { get; set; } = null!;
     private PersistingComponentStateSubscription _persistingComponentStateSubscription;
 
