@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BlazorUI.Components;
 using BlazorUI.Components.Account;
+using BlazorUI.Components.Pages;
 using BlazorUI.Data;
 using BlazorUI.Middleware;
 using Persistence;
+using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +41,9 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+
+//Service
+builder.Services.AddScoped<IQotdService, QotdService>();
 
 var app = builder.Build();
 

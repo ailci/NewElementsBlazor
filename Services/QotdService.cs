@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Persistence;
+using Shared.ViewModels;
+
+namespace Services;
+
+public class QotdService(IDbContextFactory<QotdContext> contextFactory) : IQotdService
+{
+    public async Task<QuoteOfTheDayViewModel> GetQuoteOfTheDayAsync()
+    {
+        await using var context = await contextFactory.CreateDbContextAsync();
+
+        var quotes = await context.Quotes.Include(c => c.Author).ToListAsync();
+        var random = new Random();
+        var randomQuote = quotes[random.Next(quotes.Count)];
+
+        return new QuoteOfTheDayViewModel
+        {
+            AuthorName = randomQuote.Author?.Name,
+            AuthorDescription = randomQuote.Author?.Description,
+            AuthorBirthDate = randomQuote.Author?.BirthDate,
+            QuoteText = randomQuote.QuoteText,
+            AuthorPhoto = randomQuote.Author?.Photo,
+            AuthorPhotoMimeType = randomQuote.Author?.PhotoMimeType
+        };
+    }
+}
