@@ -8,6 +8,6 @@ public partial class AuthorTable
 
     private Task ShowConfirmationDialog(Guid authorId)
     {
-        
+        return Task.CompletedTask;
     }
 }
