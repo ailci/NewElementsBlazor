@@ -44,4 +44,9 @@ public class QotdService(ILoggerManager logger, IDbContextFactory<QotdContext> c
 
         return mapper.Map<IEnumerable<AuthorViewModel>>(authors);
     }
+
+    public async Task<AuthorViewModel> DeleteAuthorAsync(Guid authorId)
+    {
+        throw new NotImplementedException();
+    }
 }

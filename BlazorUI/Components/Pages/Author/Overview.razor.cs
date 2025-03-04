@@ -19,4 +19,11 @@ public partial class Overview
     {
         AuthorsVm = (await QotdService.GetAuthorsAsync()).OrderBy(c => c.Name);
     }
+
+    private Task DeleteAuthor(Guid authorId)
+    {
+        Logger.LogInformation($"Autor mit der Id: {authorId} zum Löschen ausgewählt...");
+
+        //TODO: Autor löschen => Service erweitern
+    }
 }
