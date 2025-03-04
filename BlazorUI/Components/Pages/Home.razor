@@ -3,6 +3,9 @@
 @page "/home"
 @using Shared.Utilities
 
+<!-- Ausnahme für Interaktivitiät => SSR -->
+@* @attribute [ExcludeFromInteractiveRouting] *@ 
+
 <PageTitle>Quote of the Day</PageTitle>
 
 <QuoteOfTheDay Title="Spruch Des Tages" QotdVm="@QotdViewModel">
