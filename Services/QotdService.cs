@@ -36,4 +36,12 @@ public class QotdService(ILoggerManager logger, IDbContextFactory<QotdContext> c
 
         return mapper.Map<QuoteOfTheDayViewModel>(randomQuote);
     }
+
+    public async Task<IEnumerable<AuthorViewModel>> GetAuthorsAsync()
+    {
+        await using var context = await contextFactory.CreateDbContextAsync();
+        var authors = await context.Authors.ToListAsync();
+
+        return mapper.Map<IEnumerable<AuthorViewModel>>(authors);
+    }
 }

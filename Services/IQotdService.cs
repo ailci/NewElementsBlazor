@@ -10,4 +10,5 @@ namespace Services;
 public interface IQotdService
 {
     Task<QuoteOfTheDayViewModel> GetQuoteOfTheDayAsync();
+    Task<IEnumerable<AuthorViewModel>> GetAuthorsAsync();
 }
