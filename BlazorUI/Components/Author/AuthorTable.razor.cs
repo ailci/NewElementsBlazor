@@ -5,9 +5,11 @@ namespace BlazorUI.Components.Author;
 public partial class AuthorTable
 {
     [Parameter] public IEnumerable<AuthorViewModel>? AuthorViewModels { get; set; }
+    [Parameter] public EventCallback<Guid> OnAuthorDelete { get; set; }
 
-    private Task ShowConfirmationDialog(Guid authorId)
+    private async Task ShowConfirmationDialog(Guid authorId)
     {
-        return Task.CompletedTask;
+        //TODO: Abfrage ob man wirklich löschen möchte
+        await OnAuthorDelete.InvokeAsync(authorId); //Ereignis ausgelöst
     }
 }
