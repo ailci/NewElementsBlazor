@@ -8,8 +8,12 @@ using BlazorUI.Data;
 using BlazorUI.Middleware;
 using Persistence;
 using Services;
+using Logging;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Serilog
+builder.ConfigLoggingService();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()

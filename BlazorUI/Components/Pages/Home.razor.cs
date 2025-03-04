@@ -10,6 +10,7 @@ namespace BlazorUI.Components.Pages;
 public partial class Home : IDisposable
 {
     [Inject] public IQotdService QotdService { get; set; } = null!;
+    [Inject] public ILogger<Home> Logger { get; set; } = null!;
     [Inject] public PersistentComponentState ApplicationState { get; set; } = null!;
     private PersistingComponentStateSubscription _persistingComponentStateSubscription;
 
@@ -17,6 +18,8 @@ public partial class Home : IDisposable
 
     protected override async Task OnInitializedAsync()
     {
+        Logger.LogInformation("Home Componente aufgerufen...");
+
         _persistingComponentStateSubscription = ApplicationState.RegisterOnPersisting(PersistData);
         var statedLoaded = ApplicationState.TryTakeFromJson<QuoteOfTheDayViewModel>("qotd", out var qotd);
 
