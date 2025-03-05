@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.Forms;
+using Shared.Validations;
 
 namespace Shared.ViewModels;
 
@@ -18,7 +19,7 @@ public class AuthorForCreateViewModel
     [MinLength(2, ErrorMessage = "Bitte geben Sie eine Beschreibung mit mind. 2 Zeichen ein")]
     public string Description { get; set; } = string.Empty;
 
-    [NoFutureDate]
+    [NoFutureDate(ErrorMessage = "Geburtsdatum liegt in der Zukunft")]
     public DateOnly? BirthDate { get; set; }
     public IBrowserFile? Photo { get; set; }
 }
