@@ -16,5 +16,9 @@ public class MappingProfile : Profile
                 opt.PreCondition(c => c.Author is not null);
                 opt.MapFrom(src => src.Author!.Name);
             });
+
+        CreateMap<AuthorForCreateViewModel, Author>()
+            .ForMember(dest => dest.Photo, opt => opt.Ignore())
+            .ForMember(dest => dest.PhotoMimeType, opt => opt.Ignore());
     }
 }

@@ -11,6 +11,8 @@
         
         <EditForm Model="AuthorForCreateVm" OnValidSubmit="@HandleValidSubmit" class="card card-body bg-light">
             
+            <DataAnnotationsValidator />
+
             <!-- Name -->
             <div class="form-floating mb-3">
                 <InputText id="Name"
@@ -19,6 +21,7 @@
                            placeholder=" ">
                 </InputText>
                 <label for="Name">Name</label>
+                <ValidationMessage For="() => AuthorForCreateVm.Name"></ValidationMessage>
             </div>
             
             <!-- Description -->
@@ -29,6 +32,7 @@
                            placeholder=" ">
                 </InputText>
                 <label for="Description">Beschreibung</label>
+                <ValidationMessage For="() => AuthorForCreateVm.Description"></ValidationMessage>
             </div>
             
             <!-- BirthDate -->
@@ -39,6 +43,7 @@
                            placeholder=" ">
                 </InputDate>
                 <label for="BirthDate">Geburtsdatum</label>
+                <ValidationMessage For="() => AuthorForCreateVm.BirthDate"></ValidationMessage>
             </div>
             
             <!-- Photo -->
@@ -47,14 +52,20 @@
                            class="form-control"
                            accept="image/png, image/jpeg, image/jpg, image/gif"
                            @bind-Value="AuthorForCreateVm.Photo"
-                           placeholder=" ">
+                           placeholder=" "
+                           OnChange="OnInputFileChange">
                 </InputFile>
                 <label for="Photo">Photo</label>
+                <ValidationMessage For="() => AuthorForCreateVm.Photo"></ValidationMessage>
             </div>
             
             <div>
-                <button type="submit" class="btn btn-primary"><i class="bi bi-send-fill"></i> speichern</button>
+                <button type="submit" class="btn btn-primary" disabled="@(!context.Validate())"><i class="bi bi-send-fill"></i> speichern</button>
             </div>
         </EditForm>
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div class="alert alert-danger">@ErrorMessage</div>
+        }
     </div>
 </div>

@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Domain.Entities;
 using Logging;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using Shared.Utilities;
 using Shared.ViewModels;
 
 namespace Services;
@@ -57,5 +59,26 @@ public class QotdService(ILoggerManager logger, IDbContextFactory<QotdContext> c
         await context.SaveChangesAsync();
 
         return mapper.Map<AuthorViewModel>(author);
+    }
+
+    public async Task<AuthorViewModel> AddAuthorAsync(AuthorForCreateViewModel authorForCreateViewModel)
+    {
+        logger.LogInformation($"{nameof(AddAuthorAsync)} mit AuthorForCreate {authorForCreateViewModel.LogAsJson()} aufgerufen...");
+        await using var context = await contextFactory.CreateDbContextAsync();
+
+        var authorEntity = mapper.Map<Author>(authorForCreateViewModel);
+
+        //Falls Bild ausgewählt
+        if (authorForCreateViewModel.Photo is not null)
+        {
+            var (fileContent, contentType) = await authorForCreateViewModel.Photo.GetFile();
+            authorEntity.Photo = fileContent;
+            authorEntity.PhotoMimeType = contentType;
+        }
+
+        await context.Authors.AddAsync(authorEntity);
+        await context.SaveChangesAsync();
+
+        return mapper.Map<AuthorViewModel>(authorEntity);
     }
 }
