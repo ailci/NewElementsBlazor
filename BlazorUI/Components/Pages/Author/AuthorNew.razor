@@ -1,7 +1,29 @@
 ﻿@page "/authors/new"
 
-<h3>AuthorNew</h3>
+<div class="row">
+    <div class="col">
+        <h4>Autor erstellen</h4>
+        <hr/>
+    </div>
+</div>
+<div class="row align-items-center">
+    <div class="col-6">
+        
+        <EditForm Model="AuthorForCreateVm" OnValidSubmit="@HandleValidSubmit" class="card card-body bg-light">
+            
+            <!-- Name -->
+            <div class="form-floating mb-3">
+                <InputText id="Name"
+                           class="form-control"
+                           @bind-Value="AuthorForCreateVm.Name"
+                           placeholder=" ">
+                </InputText>
+                <label for="Name">Name</label>
+            </div>
 
-@code {
+        </EditForm>
+        
+        
 
-}
+    </div>
+</div>
