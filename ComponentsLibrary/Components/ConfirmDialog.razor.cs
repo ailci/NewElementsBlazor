@@ -17,4 +17,14 @@ public partial class ConfirmDialog
         _showConfirm = true;
         ConfirmMessage = message;
     }
+
+    private async Task OnConfirmChange(bool isConfirmed)
+    {
+        _showConfirm = false;
+
+        if (isConfirmed)
+        {
+            await OnConfirmClicked.InvokeAsync(isConfirmed);
+        }
+    }
 }

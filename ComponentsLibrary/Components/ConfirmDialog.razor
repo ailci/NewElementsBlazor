@@ -5,16 +5,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">@ConfirmTitle</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" @onclick="() => OnConfirmChange(false)"></button>
                 </div>
                 <div class="modal-body">
                     @ConfirmMessage
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="() => OnConfirmChange(false)">
                         Abbrechen
                     </button>
-                    <button type="button" class="btn btn-danger">
+                    <button type="button" class="btn btn-danger" @onclick="() => OnConfirmChange(true)">
                         Löschen
                     </button>
                 </div>

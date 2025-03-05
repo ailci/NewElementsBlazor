@@ -35,9 +35,9 @@ public partial class AuthorTable
         _confirmDialogComponent?.Show($"Wollen Sie wirklich den Autor {authorVm.Name} löschen?");
     }
 
-    private async Task ConfirmDeleteClicked()
+    private async Task ConfirmDeleteClicked(bool isConfirmed)
     {
-        //TODO: Authorid übergeben
-        await OnAuthorDelete.InvokeAsync(_authorIdToDelete);
+        if(isConfirmed)
+            await OnAuthorDelete.InvokeAsync(_authorIdToDelete);
     }
 }
