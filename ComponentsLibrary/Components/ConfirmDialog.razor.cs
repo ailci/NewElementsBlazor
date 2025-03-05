@@ -7,6 +7,7 @@ public partial class ConfirmDialog
     [Parameter] public string ConfirmMessage { get; set; } = "Sind Sie sicher?";
     [Parameter] public EventCallback<bool> OnConfirmClicked { get; set; }
     private bool _showConfirm;
+    private MarkupString _convertedConfirmMessage;
 
     public void Show()
     {
@@ -16,6 +17,7 @@ public partial class ConfirmDialog
     {
         _showConfirm = true;
         ConfirmMessage = message;
+        _convertedConfirmMessage = new MarkupString(Markdig.Markdown.ToHtml(message));
     }
 
     private async Task OnConfirmChange(bool isConfirmed)
