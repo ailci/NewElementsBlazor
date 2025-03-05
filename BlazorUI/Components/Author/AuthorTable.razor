@@ -15,7 +15,7 @@ else
         </tr>
         </thead>
         <tbody>
-            @foreach (var author in AuthorViewModels)
+        @foreach (var author in AuthorViewModels)
         {
             <tr>
                 <td>
@@ -41,4 +41,8 @@ else
         }
         </tbody>
     </table>
+
+    <ConfirmDialog @ref="_confirmDialogComponent" ConfirmTitle="Löschen bestätigen"
+                   OnConfirmClicked="@ConfirmDeleteClicked">
+    </ConfirmDialog>
 }
