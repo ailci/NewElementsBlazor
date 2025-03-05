@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,8 +10,21 @@ namespace Shared.Validations;
 
 public class AllowedFileFormatsAttribute : ValidationAttribute
 {
-    protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+    private IEnumerable<string> AllowedExtensions { get; set; }
+
+    public AllowedFileFormatsAttribute(params string[] valideTypen)
     {
-        
+        AllowedExtensions = valideTypen.Select(c => c.Trim().ToLower());
+        ErrorMessage = $"Nur folgende Datei-Typen sind erlaubt: {string.Join(",", AllowedExtensions)}";
+    }
+
+    protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
+    {
+        if (value is IBrowserFile browserFile && !AllowedExtensions.Any(c => browserFile.Name.ToLower().EndsWith(c)))
+        {
+            return new ValidationResult(ErrorMessage, [validationContext.MemberName]!);
+        }
+
+        return ValidationResult.Success;
     }
 }
