@@ -41,7 +41,7 @@ public class QotdService(ILoggerManager logger, IDbContextFactory<QotdContext> c
     {
         await using var context = await contextFactory.CreateDbContextAsync();
         var authors = await context.Authors.ToListAsync();
-
+        
         return mapper.Map<IEnumerable<AuthorViewModel>>(authors);
     }
 

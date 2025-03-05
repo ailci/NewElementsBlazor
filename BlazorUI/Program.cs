@@ -6,6 +6,7 @@ using BlazorUI.Components.Account;
 using BlazorUI.Components.Pages;
 using BlazorUI.Data;
 using BlazorUI.Middleware;
+using ComponentsLibrary;
 using Persistence;
 using Services;
 using Logging;
@@ -51,6 +52,9 @@ builder.Services.AddScoped<IQotdService, QotdService>();
 
 //Automapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+//DialogService
+builder.Services.AddScoped<DialogService>();
 
 var app = builder.Build();
 
