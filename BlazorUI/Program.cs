@@ -18,7 +18,10 @@ builder.ConfigLoggingService();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();  //Blazor Server
+    .AddInteractiveServerComponents(options =>
+    {
+        options.DetailedErrors = builder.Environment.IsDevelopment();
+    });  //Blazor Server
 
 //Db
 builder.Services.ConfigQotdContext(builder.Configuration);
