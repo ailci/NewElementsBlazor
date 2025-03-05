@@ -3,6 +3,11 @@
 
 <div class="row">
     <div class="col">
+        <button class="btn btn-primary" @onclick="NavigateToAuthorNew"><i class="bi bi-plus-circle"></i> Neuer Autor</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
         <AuthorTable AuthorViewModels="AuthorsVm" OnAuthorDelete="@DeleteAuthor"></AuthorTable>
     </div>
 </div>

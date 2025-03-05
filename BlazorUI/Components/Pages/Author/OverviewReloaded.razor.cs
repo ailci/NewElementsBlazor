@@ -8,6 +8,7 @@ public partial class OverviewReloaded
 {
     [Inject] public ILoggerManager Logger { get; set; } = null!;
     [Inject] public IQotdService QotdService { get; set; } = null!;
+    [Inject] public NavigationManager NavManager { get; set; } = null!;
     public IEnumerable<AuthorViewModel>? AuthorsVm { get; set; }
 
     protected override async Task OnInitializedAsync()
@@ -30,5 +31,10 @@ public partial class OverviewReloaded
         {
             await GetAuthors();
         }
+    }
+
+    private void NavigateToAuthorNew()
+    {
+        NavManager.NavigateTo("/authors/new");
     }
 }
